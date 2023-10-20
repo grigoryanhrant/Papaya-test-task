@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from "react";
+import "./App.css";
+import {FiguresWrapper} from "./components/FiguresWrapper/FiguresWrapper.jsx";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [rectanglesWrapperWidth, setRectanglesWrapperWidth] = useState(480);
+
+    const handleEnterPress = (evt) => {
+        if (evt.key !== 'Enter') return;
+
+        if (evt.target.value >= 200 && evt.target.value <= 1024) {
+            setRectanglesWrapperWidth(evt.target.value);
+            return;
+        }
+
+        alert('value cannot be less than 200 or greater than 1024')
+    };
+
+    return (
+        <div className="main">
+            <input
+                placeholder="Please enter a numeric value for the container width and press Enter to change it"
+                type={"number"}
+                onKeyDown={handleEnterPress}
+            />
+            <FiguresWrapper width={rectanglesWrapperWidth}/>
+        </div>
+    );
 }
 
 export default App;
